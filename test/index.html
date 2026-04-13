@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tulisix Demo - Smart Pattern Version</title>
+    <style>
+      img {
+        max-width: 200px;
+        display: block;
+        margin-top: 10px;
+        border-radius: 8px;
+      }
+      .bad-word {
+        color: red;
+        font-weight: bold;
+      }
+      .mention {
+        color: #1da1f2;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .mention:hover {
+        text-decoration: underline;
+      }
+      .wrapper {
+        padding: 20px;
+        line-height: 1.8;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <p class="text">Reza is cute</p>
+      <p class="text">Hello bold:World</p>
+      <p class="text">Hello italic:World</p>
+      <p class="text">Hello image:https://media.tenor.com/nQOSTbcTKZcAAAAM/anime-waves-hi.gif</p>
+      <p class="text">you are an idiot moron jerk!!!!!!!!!!!!</p>
+      <p class="text">[open]This is inside a custom tag[/open]</p>
+      <p class="text">handsome</p>
+      <p class="text">Don't forget to follow @rezzvy</p>
+      <p class="text">Please visit link:Google|https://google.com to find more info.</p>
+      <p class="text">Discounted price: ~$100~ becomes $50</p>
+      <p class="text">This text is color:red[red] and this one is color:green[green].</p>
+      <p class="text">I am so happy today! :smile: :heart:</p>
+    </div>
+
+    <script src="../dist/tulisix.min.js"></script>
+    <script>
+      const tulisix = new Tulisix();
+
+      tulisix.addRule([
+        {
+          from: "Reza is cute",
+          to: "Reza is not cute",
+        },
+        {
+          from: "bold:{content}",
+          to: "<strong>{content}</strong>",
+        },
+        {
+          from: "italic:{content}",
+          to: "<i>{content}</i>",
+        },
+        {
+          from: "[open]{content}[/open]",
+          to: "<span style='color: blue;'>{content}</span>",
+        },
+        {
+          from: "image:{url}",
+          to: "<img src='{url}'>",
+        },
+        {
+          from: ["idiot", "moron", "jerk"],
+          caseSensitive: false,
+          to: (vars, matched) => {
+            return `<span class="bad-word">${matched[0].replace(/..$/, "**")}</span>`;
+          },
+        },
+        {
+          from: "handsome",
+          to: "gorgeous",
+        },
+        {
+          from: "@{username}",
+          to: "<a href='https://twitter.com/{username}' class='mention'>@{username}</a>",
+        },
+
+        {
+          from: "link:{text}|{url}",
+          to: "<a href='{url}' target='_blank' rel='noopener noreferrer'>{text}</a>",
+        },
+        {
+          from: "~{content}~",
+          to: "<del>{content}</del>",
+        },
+
+        {
+          from: "color:{colorName}[{text}]",
+          to: "<span style='color: {colorName}; font-weight: bold;'>{text}</span>",
+        },
+
+        {
+          from: ":smile:",
+          to: "😊",
+        },
+        {
+          from: ":heart:",
+          to: "❤️",
+        },
+      ]);
+
+      tulisix.replace(".text");
+    </script>
+  </body>
+</html>

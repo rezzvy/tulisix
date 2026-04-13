@@ -1,0 +1,38 @@
+{
+  "name": "tulisix",
+  "version": "1.0.0",
+  "description": "Transform text node into any format imaginable.",
+  "type": "module",
+  "main": "dist/tulisix.esm.js",
+  "exports": {
+    ".": "./dist/tulisix.esm.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rezzvy/tulisix.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rezzvy/tulisix/issues"
+  },
+  "homepage": "https://github.com/rezzvy/tulisix#readme",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build:browser": "esbuild ./src/index.browser.js --bundle --minify --platform=browser --format=iife --outfile=dist/tulisix.min.js",
+    "build:esm": "esbuild ./src/tulisix.js --bundle --minify --format=esm --outfile=dist/tulisix.esm.js",
+    "build": "npm run build:browser && npm run build:esm"
+  },
+  "keywords": [
+    "text-transformation",
+    "pattern-matcher",
+    "safe-html-converter",
+    "regex-transformer",
+    "content-formatter"
+  ],
+  "author": "rezzvy",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.27.4"
+  }
+}
